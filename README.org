@@ -1,0 +1,80 @@
+#+OPTIONS: toc:nil num:nil
+
+* lazy-map
+
+Create Clojure maps whose values are only calculated when accessed, either from data or from java objects.
+
+**  The ~lazy-map~
+
+This macro is analogous to ~lazy-seq~. It takes a map (instead of a
+seq), but the value expressions you write aren't actually evaluated
+until they are accessed.
+
+#+BEGIN_SRC clojure
+user> (def my-map
+        (lazy-map
+         {:cause (do (println "Getting Cause")
+                     :major-failure)
+          :name (do (println "Getting Name")
+                    "Some Name")}))
+#'user/my-map
+
+user> (:name my-map)
+Getting Name
+"Some Name"
+
+user> (:name my-map)
+"Some Name"
+
+user> (:cause my-map)
+Getting Cause
+:major-failure
+
+user> (:cause my-map)
+:major-failure
+#+END_SRC
+
+** The ~to-lazy-map~ protocol
+
+This protocol allows you to convert any java class into a lazy map,
+where each entry correponds to a method call. Since everything is
+lazy, you can rest assured the methods won’t actually be called until
+you use them.
+
+#+BEGIN_SRC clojure
+user> (use 'lazy-map.iop)
+nil
+user> (extend-lazy-map String)
+nil
+
+user> (to-lazy-map "My Own Map!")
+{:to-char-array #<LazyVal lazy_map.core.LazyVal@7da41d83>,
+ :empty?        #<LazyVal lazy_map.core.LazyVal@46e7f2eb>,
+ :to-string     #<LazyVal lazy_map.core.LazyVal@1b155784>,
+ :intern        #<LazyVal lazy_map.core.LazyVal@63f1f826>,
+ :chars         #<LazyVal lazy_map.core.LazyVal@3e64b9de>,
+ :class         #<LazyVal lazy_map.core.LazyVal@47ed7453>,
+ :length        #<LazyVal lazy_map.core.LazyVal@76f5a25d>,
+ :trim          #<LazyVal lazy_map.core.LazyVal@1a29446d>,
+ :bytes         #<LazyVal lazy_map.core.LazyVal@118a4bf>,
+ :code-points   #<LazyVal lazy_map.core.LazyVal@2d7b1723>,
+ :to-lower-case #<LazyVal lazy_map.core.LazyVal@76c7af9b>,
+ :hash-code     #<LazyVal lazy_map.core.LazyVal@269d9702>,
+ :object        #<LazyVal lazy_map.core.LazyVal@62e4e232>,
+ :to-upper-case #<LazyVal lazy_map.core.LazyVal@17533342>}
+
+user> (:to-upper-case *1)
+"MY OWN MAP!"
+#+END_SRC
+
+Note how there’s an entry for each method. Obviously, only methods
+that takes no arguments (0-arity) are included.
+
+There’s also an extra ~:object~ entry holding the string itself.
+
+** License
+
+Copyright © 2015 Artur Malabarba
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.
