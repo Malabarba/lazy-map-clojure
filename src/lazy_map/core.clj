@@ -11,9 +11,23 @@
   Object
   (getv [a] a))
 
-(deftype LazyVal [cons]
+;;; LazyVal is a simple wrapper around `delay` that extends [[Holder]].
+;; Don't call the constructor directly, use [[lazy-val]] instead.
+(deftype LazyVal [delay]
   Holder
-  (getv [_] (first cons)))
+  (getv [_] (force delay)))
+
+(defmacro lazy-val
+  "Return a LazyVal that runs `body` when accessed.
+  Somewhat analogous to `clojure.core/lazy-seq`. See also [[lazy-map]]."
+  [& body]
+  `(LazyVal. (delay ~@body)))
+
+(defn lazy-val-fn
+  "Return a lazy value that evaluates `function` when accessed.
+  Designed to offers a non-macro alternative to [[lazy-val]]."
+  [function]
+  (lazy-val (function)))
 
 
 ;;; Map Definition
@@ -56,17 +70,6 @@
 
 
 ;;; Map creation
-(defmacro lazy-val
-  "Return a lazy value that runs `body` when accessed.
-  Somewhat analogous to `clojure.core/lazy-seq`"
-  [& body]
-  `(LazyVal. (lazy-seq [(do ~@body)])))
-
-(defn lazy-val-fn
-  "Return a lazy value that evaluates `function` when accessed."
-  [function]
-  (lazy-val (function)))
-
 (defmacro lazy-map
   "Return a LazyMap created from a map `m`.
   The values in `m` are only evaluated when accessed."
