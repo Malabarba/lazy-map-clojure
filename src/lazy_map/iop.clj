@@ -103,8 +103,6 @@
   - `allow-impure` is a boolean. By default, methods which return void
     are automatically avoided. Setting this to true disables that
     precaution.
-  - `no-exceptions` is a boolean which indicates to avoid methods that
-    can throw exceptions.
   - `catch-exceptions` is a boolean which indicates to catch and discard
     any exceptions thrown by the methods (and return nil)."
   [class & {:keys [exclude post-key keyname allow-impure no-exceptions catch-exceptions]}]
@@ -119,7 +117,7 @@
          (lazy-map
           ~(cond->> (public-methods class)
              true          (remove #(exc (:name %)))
-             no-exceptions (remove #(seq (:exception-types %)))
+             ;; no-exceptions (remove #(seq (:exception-types %)))
              (not allow-impure) (remove #(= (:return-type %) 'void))
              true          (filter #(= (count (:parameter-types %)) 0))
              true          (map (fn [{:keys [name return-type] :as o}]
