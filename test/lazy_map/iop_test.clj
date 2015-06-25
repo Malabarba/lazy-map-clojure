@@ -2,7 +2,6 @@
   (:require [lazy-map.iop :refer :all]
             [clojure.test :refer :all]))
 
-
 (deftest a-test
   (extend-lazy-map String)
   (extend-lazy-map Exception)
@@ -25,7 +24,7 @@
   (let [s (to-lazy-map "The String")
         e (to-lazy-map (ex))]
     (is (= (count s) 13))
-    (is (= (count e) 10))
+    (is (= (count e) 14))
     (is (= (:length s) 9))
     (is (try (:notify-all e)
              (catch Exception e true)))))

@@ -1,6 +1,7 @@
 (ns lazy-map.core-test
   (:require [clojure.test :refer :all]
-            [lazy-map.core :refer :all]))
+            [lazy-map.core :refer :all])
+  (:import lazy_map.core.LazyMap))
 
 (deftest lazy
   (let [a (atom 0)
@@ -18,7 +19,7 @@
     (are [k v] (= (k m) v)
       :a nil :b "ok" :c 1 :d true :e sym))
   (let [sym (gensym "!")
-        m (lazy-map.core.LazyMap {:a nil :b "ok" :c 1 :d true
-                                  :e sym})]
+        m (LazyMap. {:a nil :b "ok" :c 1 :d true
+                     :e sym})]
     (are [k v] (= (k m) v)
       :a nil :b "ok" :c 1 :d true :e sym)))
