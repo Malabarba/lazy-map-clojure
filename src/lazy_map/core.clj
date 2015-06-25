@@ -9,6 +9,8 @@
 
 (extend-protocol Holder
   Object
+  (getv [a] a)
+  nil
   (getv [a] a))
 
 ;;; LazyVal is a simple wrapper around `delay` that extends [[Holder]].
