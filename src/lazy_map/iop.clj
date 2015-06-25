@@ -95,7 +95,7 @@
 
   - `exclude` is a sequence of methods to avoid (methods with non-zero
     arity or which return void are automatically avoided).
-  - `post-key` is a map from method names to functions. The function is
+  - `post-fns` is a map from method names to functions. The function is
     called on the return value of that method. If the method's return
     value is an Enum, then this defaults to [[symbol-to-keyword]].
   - `keyname` is a map from method names to keys, these keys are used in
@@ -105,10 +105,10 @@
     precaution.
   - `catch-exceptions` is a boolean which indicates to catch and discard
     any exceptions thrown by the methods (and return nil)."
-  [class & {:keys [exclude post-key keyname allow-impure no-exceptions catch-exceptions]}]
-  (let [post (into {} post-key)
+  [class & {:keys [exclude post-fns keyname allow-impure catch-exceptions]}]
+  (let [post (into {} post-fns)
         exc  (into #{} exclude)
-        kn   (into #{} keyname)
+        kn   (into {} keyname)
         arg  (vary-meta 'o assoc :tag class)
         class (resolve class)]
     `(extend-protocol ToLazyMap
@@ -128,7 +128,7 @@
                                                     `enum-to-keyword))]
                                      `(~f (. ~arg ~name))
                                      `(. ~arg ~name))]))
-             catch-exceptions (map (fn [[k v]] [k `(try ~v (catch Exception e))]))
+             catch-exceptions (map (fn [[k v]] [k `(try ~v (catch Exception ~'e))]))
              true          (into {:object arg})))))))
 
 
