@@ -4,7 +4,11 @@
 
 Create Clojure maps whose values are only calculated when accessed, either from data or from java objects.
 
-**  The ~lazy-map~
+[[https://clojars.org/org.clojars.malabarba/lazy-map/latest-version.svg]]
+
+[[http://malabarba.github.io/lazy-map-clojure/][Documentation]]
+
+**  The [[http://malabarba.github.io/lazy-map-clojure/lazy-map.core.html#var-lazy-map][lazy-map]]
 
 This macro is analogous to ~lazy-seq~. It takes a map (instead of a
 seq), but the value expressions you write aren't actually evaluated
@@ -34,7 +38,7 @@ user> (:cause my-map)
 :major-failure
 #+END_SRC
 
-** The ~to-lazy-map~ protocol
+** The [[http://malabarba.github.io/lazy-map-clojure/lazy-map.iop.html#var-extend-lazy-map][to-lazy-map]] protocol
 
 This protocol allows you to convert any java class into a lazy map,
 where each entry correponds to a method call. Since everything is

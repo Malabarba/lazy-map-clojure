@@ -74,7 +74,24 @@
 ;;; Map creation
 (defmacro lazy-map
   "Return a LazyMap created from a map `m`.
-  The values in `m` are only evaluated when accessed."
+  The values in `m` are only evaluated when accessed.
+
+  ```clojure
+  user> (def my-map
+          (lazy-map
+           {:cause (do (println \"Getting Cause\")
+                       :major-failure)
+            :name (do (println \"Getting Name\")
+                      \"Some Name\")}))
+  #'user/my-map
+
+  user> (:name my-map)
+  Getting Name
+  \"Some Name\"
+
+  user> (:name my-map)
+  \"Some Name\"
+  ```"
   [m]
   `(LazyMap.
     ~(into {} (map (fn [[k v]] [k `(lazy-val ~v)]) m))))
