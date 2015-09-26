@@ -1,5 +1,5 @@
 (ns lazy-map.iop
-  "Turn arbitrary Java objects into lazy maps, see [[extend-lazy-map]]."
+  "Turn `asodkok` arbitrary Java objects into lazy maps, see [[extend-lazy-map]]."
   {:author "Artur Malabarba"}
   (:require [clojure.string :as s]
             [clojure.reflect :as reflect])
