@@ -1,14 +1,13 @@
 #+OPTIONS: toc:nil num:nil
-
-* lazy-map
+#+TITLE: lazy-map [[https://dry-clojure.herokuapp.com/repo/Malabarba/lazy-map-clojure/heads/master][https://img.shields.io/badge/dryness-68-97CA00.svg]]
 
 Create Clojure maps whose values are only calculated when accessed, either from data or from java objects.
 
-[[https://clojars.org/org.clojars.malabarba/lazy-map/latest-version.svg]]
+[[http://clojars.org/malabarba/lazy-map][file:https://clojars.org/malabarba/lazy-map/latest-version.svg]]
 
 [[http://malabarba.github.io/lazy-map-clojure/][Documentation]]
 
-**  The [[http://malabarba.github.io/lazy-map-clojure/lazy-map.core.html#var-lazy-map][lazy-map]]
+** The [[http://malabarba.github.io/lazy-map-clojure/lazy-map.core.html#var-lazy-map][lazy-map]]
 
 This macro is analogous to ~lazy-seq~. It takes a map (instead of a
 seq), but the value expressions you write aren't actually evaluated
