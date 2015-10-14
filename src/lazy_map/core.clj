@@ -1,37 +1,21 @@
 (ns lazy-map.core
   "Create lazy-maps, whose values are only calculated when they are
   looked up for the first time, see [[lazy-map]]"
-  {:author "Artur Malabarba"})
+  {:author "Artur Malabarba"}
+  (:require [lazy-map.lazy-val :refer [lazy-val getv]]))
 
 (defprotocol Holder
   "Hold a value."
-  (getv [a] "Return object, resolving it if LazyValue."))
+  (getv [a] "Return object, resolving it if delayed."))
 
 (extend-protocol Holder
   Object
   (getv [a] a)
   nil
-  (getv [a] a))
+  (getv [a] a)
+  Delay
+  (getv [a] (force a)))
 
-;;; LazyVal is a simple wrapper around `delay` that extends [[Holder]].
-;; Don't call the constructor directly, use [[lazy-val]] instead.
-(deftype LazyVal [delay]
-  Holder
-  (getv [_] (force delay)))
-
-(defmacro lazy-val
-  "Return a LazyVal that runs `body` when accessed.
-  Somewhat analogous to `clojure.core/lazy-seq`. See also [[lazy-map]]."
-  [& body]
-  `(LazyVal. (delay ~@body)))
-
-(defn lazy-val-fn
-  "Return a lazy value that evaluates `function` when accessed.
-  Designed to offers a non-macro alternative to [[lazy-val]]."
-  [function]
-  (lazy-val (function)))
-
-
 ;;; Map Definition
 (deftype LazyMap [contents]
   clojure.lang.IPersistentMap
@@ -70,7 +54,6 @@
   (valAt [_ k not-found]
     (getv (.valAt contents k not-found))))
 
-
 ;;; Map creation
 (defmacro lazy-map
   "Return a LazyMap created from a map `m`.
