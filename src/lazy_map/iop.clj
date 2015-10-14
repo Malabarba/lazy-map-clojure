@@ -3,7 +3,7 @@
   {:author "Artur Malabarba"}
   (:require [clojure.string :as s]
             [clojure.reflect :as reflect])
-  (:use lazy-map.core))
+  (:require [lazy-map.core :refer [lazy-map]]))
 
 (defn symbol-to-keyword
   "Convert a method or field name to a keyword.
@@ -43,8 +43,6 @@
       (s/replace "_" "-")
       (keyword)))
 
-
-
 ;;; The protocol
 (defprotocol ToLazyMap
   "Turn argument to a LazyMap. 
@@ -55,7 +53,6 @@
   clojure.lang.Associative
   (to-lazy-map [a] a))
 
-
 ;;; The Macro
 (defmacro extend-lazy-map
   "Extend [[to-lazy-map]] for converting an object of `class`.
@@ -131,7 +128,6 @@
              catch-exceptions (map (fn [[k v]] [k `(try ~v (catch Exception ~'e))]))
              true          (into {:object arg})))))))
 
-
 ;;; And some extensions
 (extend-lazy-map String)
 (extend-lazy-map Exception)

@@ -2,7 +2,7 @@
   "Create lazy-maps, whose values are only calculated when they are
   looked up for the first time, see [[lazy-map]]"
   {:author "Artur Malabarba"}
-  (:require [lazy-map.lazy-val :refer [lazy-val getv]]))
+  (:import clojure.lang.Delay))
 
 (defprotocol Holder
   "Hold a value."
@@ -47,7 +47,7 @@
 
   clojure.lang.Seqable
   (seq [_] (.seq contents))
-  
+
   clojure.lang.ILookup
   (valAt [_ k]
     (getv (.valAt contents k)))
@@ -77,4 +77,4 @@
   ```"
   [m]
   `(LazyMap.
-    ~(into {} (map (fn [[k v]] [k `(lazy-val ~v)]) m))))
+    ~(into {} (map (fn [[k v]] [k `(delay ~v)]) m))))
