@@ -19,6 +19,13 @@ points are the `core/lazy-map` and the `iop/extend-lazy-map` macros."
              ;;             :dependencies [[com.cemerick/piggieback "0.2.1"]
              ;;                            [org.clojure/clojurescript "0.0-3211"]]}
 
+             :coveralls {:plugins [[lein-cloverage "1.0.2"]
+                                   [lein-shell "0.4.0"]]
+                         :aliases {"coveralls" ["do" "cloverage" "--coveralls,"
+                                                "shell" "curl" "-F"
+                                                "json_file=@target/coverage/coveralls.json"
+                                                "https://coveralls.io/api/v1/jobs"]}}
+
              :1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}
              :1.6 {:dependencies [[org.clojure/clojure "1.6.0"]]}
              :1.7 {:dependencies [[org.clojure/clojure "1.7.0"]]}
