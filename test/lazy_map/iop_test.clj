@@ -2,7 +2,6 @@
   (:require [lazy-map.iop :refer :all]
             [clojure.test :refer :all]))
 
-
 ;;; Utility functions
 (deftest test-enum-to-keyword
   (testing "Only enum is allowed"

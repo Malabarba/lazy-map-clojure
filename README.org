@@ -51,20 +51,20 @@ user> (extend-lazy-map String)
 nil
 
 user> (to-lazy-map "My Own Map!")
-{:to-char-array #<LazyVal lazy_map.core.LazyVal@7da41d83>,
- :empty?        #<LazyVal lazy_map.core.LazyVal@46e7f2eb>,
- :to-string     #<LazyVal lazy_map.core.LazyVal@1b155784>,
- :intern        #<LazyVal lazy_map.core.LazyVal@63f1f826>,
- :chars         #<LazyVal lazy_map.core.LazyVal@3e64b9de>,
- :class         #<LazyVal lazy_map.core.LazyVal@47ed7453>,
- :length        #<LazyVal lazy_map.core.LazyVal@76f5a25d>,
- :trim          #<LazyVal lazy_map.core.LazyVal@1a29446d>,
- :bytes         #<LazyVal lazy_map.core.LazyVal@118a4bf>,
- :code-points   #<LazyVal lazy_map.core.LazyVal@2d7b1723>,
- :to-lower-case #<LazyVal lazy_map.core.LazyVal@76c7af9b>,
- :hash-code     #<LazyVal lazy_map.core.LazyVal@269d9702>,
- :object        #<LazyVal lazy_map.core.LazyVal@62e4e232>,
- :to-upper-case #<LazyVal lazy_map.core.LazyVal@17533342>}
+{:to-char-array #object[clojure.lang.Delay 0x5c3c775a {:status :pending, :val nil}],
+ :empty?        #object[clojure.lang.Delay 0x774f63f2 {:status :pending, :val nil}],
+ :to-string     #object[clojure.lang.Delay 0x4a62ed8c {:status :pending, :val nil}],
+ :intern        #object[clojure.lang.Delay 0x4ddc7018 {:status :pending, :val nil}],
+ :chars         #object[clojure.lang.Delay 0x72e5585e {:status :pending, :val nil}],
+ :class         #object[clojure.lang.Delay 0x7e39e503 {:status :pending, :val nil}],
+ :length        #object[clojure.lang.Delay 0x236a69c5 {:status :pending, :val nil}],
+ :trim          #object[clojure.lang.Delay 0xd988100 {:status :pending, :val nil}],
+ :bytes         #object[clojure.lang.Delay 0x55671f45 {:status :pending, :val nil}],
+ :code-points   #object[clojure.lang.Delay 0x64c7f917 {:status :pending, :val nil}],
+ :to-lower-case #object[clojure.lang.Delay 0x1493800b {:status :pending, :val nil}],
+ :hash-code     #object[clojure.lang.Delay 0x5d4a8318 {:status :pending, :val nil}],
+ :object        #object[clojure.lang.Delay 0x30ba32c3 {:status :pending, :val nil}],
+ :to-upper-case #object[clojure.lang.Delay 0x6b6e6a82 {:status :pending, :val nil}]}
 
 user> (:to-upper-case *1)
 "MY OWN MAP!"
