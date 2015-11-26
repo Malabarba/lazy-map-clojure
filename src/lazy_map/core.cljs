@@ -23,34 +23,40 @@
 (deftype LazyMap [contents]
   IAssociative
   (-assoc [_ k v]
-          (LazyMap. (assoc contents k v)))
+    (LazyMap. (assoc contents k v)))
   (-contains-key? [_ k]
-                  (-contains-key? contents k))
+    (-contains-key? contents k))
 
   IIterable
   (-iterator [this]
-             (-iterator (into {} (map (fn [[k v]] [k (getv v)]) contents))))
+    (-iterator (into {} (map (fn [[k v]] [k (getv v)]) contents))))
 
   ICounted
-  (-count [_] (-count contents))
+  (-count [_]
+    (-count contents))
 
   IEmptyableCollection
-  (-empty [_] (-empty contents))
+  (-empty [_]
+    (-empty contents))
 
   ICollection
-  (-conj [_ o] (-conj contents o))
+  (-conj [_ o]
+    (-conj contents o))
 
   IEquiv
-  (-equiv [_ other] (-equiv contents other))
+  (-equiv [_ other]
+    (-equiv contents other))
 
   ISeqable
-  (-seq [_] (-seq contents))
+  (-seq [_]
+    (-seq contents))
 
   ILookup
   (-lookup [_ k]
-           (getv (-lookup contents k)))
+    (getv (-lookup contents k)))
   (-lookup [_ k not-found]
-           (getv (-lookup contents k not-found)))
+    (getv (-lookup contents k not-found)))
 
   IPrintWithWriter
-  (-pr-writer [_ writer _] (-write writer contents)))
+  (-pr-writer [_ writer _]
+    (-write writer contents)))
