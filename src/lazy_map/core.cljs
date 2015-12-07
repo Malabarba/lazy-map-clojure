@@ -10,10 +10,14 @@
   (getv [a] "Return object, resolving it if delayed."))
 
 (extend-protocol Holder
-  object (getv [a] a)
-  number (getv [a] a)
-  boolean (getv [a] a)
-  string (getv [a] a)
+  object
+  (getv [a] a)
+  number
+  (getv [a] a)
+  boolean
+  (getv [a] a)
+  string
+  (getv [a] a)
   nil
   (getv [a] a)
   Delay
@@ -26,6 +30,12 @@
     (LazyMap. (assoc contents k v)))
   (-contains-key? [_ k]
     (-contains-key? contents k))
+
+  IMap
+  (-dissoc [_ k]
+    (-> contents
+        (-dissoc k)
+        LazyMap.))
 
   IIterable
   (-iterator [this]
