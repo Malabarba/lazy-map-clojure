@@ -7,9 +7,10 @@ script:
   # - lein source-deps
   - $TEST_CMD
 env:
-  - TEST_CMD="lein with-profile +1.5,+test-clj test"
-  - TEST_CMD="lein with-profile +1.6,+test-clj test"
-  - TEST_CMD="lein with-profile +1.7,+test-clj test"
+  # - TEST_CMD="lein with-profile +1.5,+test-clj test"
+  # - TEST_CMD="lein with-profile +1.6,+test-clj test"
+  - TEST_CMD="lein with-profile +test test"
+  - TEST_CMD="lein with-profile +test-cljs doo phantom test once"
 
   # - TEST_CMD="lein with-profile +1.6,+test-cljs test"
   # - TEST_CMD="lein with-profile +1.7,+test-cljs test"
@@ -20,16 +21,18 @@ jdk:
   - oraclejdk8
 matrix:
   exclude:
-    - env: TEST_CMD="lein with-profile +1.6 test"
+    # - env: TEST_CMD="lein with-profile +1.6 test"
+    #   jdk: openjdk6
+    - env: TEST_CMD="lein with-profile +test test"
       jdk: openjdk6
-    - env: TEST_CMD="lein with-profile +1.7 test"
+    - env: TEST_CMD="lein with-profile +test-cljs doo phantom test once"
       jdk: openjdk6
   include:
-    - env: TEST_CMD="lein with-profile +1.7,+test-clj,+coveralls coveralls"
+    - env: TEST_CMD="lein with-profile +test,+coveralls coveralls"
       jdk: oraclejdk8
-    - env: TEST_CMD="lein with-profile +1.7,+test-clj,+eastwood eastwood"
+    - env: TEST_CMD="lein with-profile +test,+eastwood eastwood"
       jdk: oraclejdk8
-    - env: TEST_CMD="lein with-profile +1.7,+test-clj,+cljfmt cljfmt check"
+    - env: TEST_CMD="lein with-profile +test,+cljfmt cljfmt check"
       jdk: oraclejdk8
 
 notifications:

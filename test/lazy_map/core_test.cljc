@@ -1,9 +1,12 @@
 (ns lazy-map.core-test
-  (:require [clojure.test :refer :all]
-            [lazy-map.core :refer :all])
-  (:import lazy_map.core.LazyMap))
+  (:require #?(:clj [clojure.test :refer [deftest testing is are]]
+               :cljs [cljs.test :refer-macros [deftest testing is are]])
+            #?(:clj [lazy-map.core :refer [lazy-map getv]]
+               :cljs [lazy-map.core :refer [getv LazyMap]
+                           :refer-macros [lazy-map]]))
+  #?(:clj (:import lazy_map.core.LazyMap)))
 
-;;; Holder tests
+;; Holder tests
 (deftest basic-holder-functionality
   (testing "Object and nil extend Holder trivially"
     (is (= "a" (getv "a")))
@@ -17,9 +20,9 @@
     (is (= 'sy (getv (delay 'sy))))))
 
 ;;; Map tests
-(deftest sanity
-  (is (= (class (lazy-map {:a 1}))
-         LazyMap)))
+#?(:clj (deftest sanity
+          (is (= (class (lazy-map {:a 1}))
+                 LazyMap))))
 
 (deftest is-lazy
   (testing "Lazy maps are lazy"
@@ -63,11 +66,12 @@
   (let [a (atom 0)
         m (lazy-map {:a (swap! a + 1000)})]
     (testing "Printing format"
-      (is (re-find #"\{:a .*:pending.*\}"
+      (is (re-find #"\{:a .*Delay.*\}"
                    (pr-str m))))
     (testing "Printing doesn't resolve values"
       (is (= @a 0)))
     (:a m)
-    (testing "After resolving, print the value."
-      (is (re-find #"\{:a .*1000.*\}"
-                   (pr-str m))))))
+    #?(:clj
+        (testing "After resolving, print the value."
+          (is (re-find #"\{:a .*1000.*\}"
+                       (pr-str m)))))))
