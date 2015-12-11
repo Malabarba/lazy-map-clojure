@@ -1,7 +1,8 @@
 #+OPTIONS: toc:nil num:nil
 #+TITLE: lazy-map [[https://travis-ci.org/Malabarba/lazy-map-clojure?branch%3Dmaster][https://secure.travis-ci.org/Malabarba/lazy-map-clojure.png?branch=master]] [[https://dry-clojure.herokuapp.com/repo/Malabarba/lazy-map-clojure/heads/master][https://img.shields.io/badge/dryness-68-97CA00.svg]] [[https://coveralls.io/github/Malabarba/lazy-map-clojure?branch=master][https://coveralls.io/repos/Malabarba/lazy-map-clojure/badge.svg?branch=master&service=github]]
 
-Create Clojure maps whose values are only calculated when accessed, either from data or from java objects.
+Create maps whose values are only calculated when accessed, either from data or from java objects.
+Supports both Clojure and Clojurescript!
 
 [[http://clojars.org/malabarba/lazy-map][file:https://clojars.org/malabarba/lazy-map/latest-version.svg]]
 
