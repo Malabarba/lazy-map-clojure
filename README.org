@@ -38,6 +38,23 @@ user> (:cause my-map)
 :major-failure
 #+END_SRC
 
+You can also assoc new keys into a LazyMap like a regular Clojure map.
+If you assoc a ~delay~ it will act as a lazy value, and if you assoc
+anything else it acts as a regular value.
+
+#+BEGIN_SRC clojure
+user> (def new-map (-> (assoc my-map :surname "Malabarba")
+                 (assoc :delayed-surname
+                        (delay (println "Resolved")
+                               "Late Malabarba"))))
+#'user/new-map
+user> (:surname my-map)
+"Malabarba"
+user> (:delayed-surname my-map)
+Resolved
+"Late Malabarba"
+#+END_SRC
+
 ** The [[http://malabarba.github.io/lazy-map-clojure/lazy-map.iop.html#var-extend-lazy-map][to-lazy-map]] protocol
 
 This protocol allows you to convert any java class into a lazy map,
