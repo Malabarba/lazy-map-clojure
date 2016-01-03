@@ -28,8 +28,9 @@
 
   java.lang.Iterable
   (iterator [this]
-    (.iterator ^java.lang.Iterable
-               (into {} (map (fn [[k v]] [k (getv v)]) contents))))
+    (.iterator
+     ^java.lang.Iterable
+     (into {} (map (fn [[k v]] [k (getv v)]) contents))))
 
   clojure.lang.Associative
   (containsKey [_ k]
