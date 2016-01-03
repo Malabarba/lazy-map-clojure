@@ -17,7 +17,7 @@
   (getv [a] (force a)))
 
 ;;; Map Definition
-(deftype LazyMap [contents]
+(deftype LazyMap [^clojure.lang.IPersistentMap contents]
   clojure.lang.IPersistentMap
   (assoc [_ k v]
     (LazyMap. (.assoc contents k v)))
@@ -28,7 +28,8 @@
 
   java.lang.Iterable
   (iterator [this]
-    (.iterator (into {} (map (fn [[k v]] [k (getv v)]) contents))))
+    (.iterator ^java.lang.Iterable
+               (into {} (map (fn [[k v]] [k (getv v)]) contents))))
 
   clojure.lang.Associative
   (containsKey [_ k]
@@ -43,7 +44,7 @@
     (LazyMap. (.cons contents o)))
   (equiv [_ o]
     (and (isa? (class o) LazyMap)
-         (.equiv contents (.contents o))))
+         (.equiv contents (.contents ^LazyMap o))))
 
   clojure.lang.Seqable
   (seq [_] (.seq contents))

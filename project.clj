@@ -12,7 +12,8 @@ points are the `core/lazy-map` and the `iop/extend-lazy-map` macros."
           :src-dir-uri               "https://github.com/Malabarba/lazy-map-clojure/blob/master/"
           :src-linenum-anchor-prefix "L"}
 
-  :profiles {:test      {:test-paths ["test/cljc"]}
+  :profiles {:test      {:test-paths  ["test/cljc"]
+                         :global-vars {*warn-on-reflection* true}}
              :test-cljs {:dependencies [[org.clojure/clojurescript "1.7.170"]]
                          :plugins      [[lein-cljsbuild   "1.1.1"]
                                         [lein-doo "0.1.6-rc.1"]]}
