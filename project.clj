@@ -43,4 +43,4 @@ points are the `core/lazy-map` and the `iop/extend-lazy-map` macros."
   :aliases {"clj-test"  ["with-profile" "+test" "test"]
             "cljs-test" ["with-profile" "+test-cljs" "do"
                          ["clean"]
-                         ["doo" "phantom" "test" "auto"]]})
+                         ["doo" "phantom" "test" "once"]]})

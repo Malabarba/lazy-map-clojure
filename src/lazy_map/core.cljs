@@ -68,5 +68,5 @@
     (getv (-lookup contents k not-found)))
 
   IPrintWithWriter
-  (-pr-writer [_ writer _]
-    (-write writer contents)))
+  (-pr-writer [_ writer opts]
+    (-pr-writer contents writer opts)))
