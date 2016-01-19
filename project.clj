@@ -1,4 +1,4 @@
-(defproject malabarba/lazy-map "1.1"
+(defproject malabarba/lazy-map "1.3"
   :description "Create lazy maps from data or from java objects. Entry
 points are the `core/lazy-map` and the `iop/extend-lazy-map` macros."
   :url "https://github.com/Malabarba/lazy-map-clojure"
