@@ -51,7 +51,7 @@
 
   ICollection
   (-conj [_ o]
-    (-conj contents o))
+    (LazyMap. (-conj contents o)))
 
   IEquiv
   (-equiv [_ other]
